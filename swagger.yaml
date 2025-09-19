@@ -1,0 +1,362 @@
+openapi: 3.0.3
+info:
+  title: Hospital Management API
+  description: CRUD API for Hospitals, Doctors, Patients, and Appointments
+  version: 1.0.0
+servers:
+  - url: http://localhost:5000/api
+    description: Local server
+
+tags:
+  - name: Hospitals
+  - name: Doctors
+  - name: Patients
+  - name: Appointments
+
+paths:
+  # Hospitals
+  /hospitals:
+    get:
+      tags:
+        - Hospitals
+      summary: Get all hospitals
+      responses:
+        '200':
+          description: List of hospitals
+    post:
+      tags:
+        - Hospitals
+      summary: Create a new hospital
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Hospital'
+      responses:
+        '201':
+          description: Hospital created
+
+  /hospitals/{id}:
+    get:
+      tags:
+        - Hospitals
+      summary: Get a hospital by ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Hospital object
+    put:
+      tags:
+        - Hospitals
+      summary: Update a hospital
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Hospital'
+      responses:
+        '200':
+          description: Hospital updated
+    delete:
+      tags:
+        - Hospitals
+      summary: Delete a hospital
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Hospital deleted
+
+  # Doctors
+  /doctors:
+    get:
+      tags:
+        - Doctors
+      summary: Get all doctors
+      responses:
+        '200':
+          description: List of doctors
+    post:
+      tags:
+        - Doctors
+      summary: Create a new doctor
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Doctor'
+      responses:
+        '201':
+          description: Doctor created
+
+  /doctors/{id}:
+    get:
+      tags:
+        - Doctors
+      summary: Get a doctor by ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Doctor object
+    put:
+      tags:
+        - Doctors
+      summary: Update a doctor
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Doctor'
+      responses:
+        '200':
+          description: Doctor updated
+    delete:
+      tags:
+        - Doctors
+      summary: Delete a doctor
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Doctor deleted
+
+  # Patients
+  /patients:
+    get:
+      tags:
+        - Patients
+      summary: Get all patients
+      responses:
+        '200':
+          description: List of patients
+    post:
+      tags:
+        - Patients
+      summary: Create a new patient
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Patient'
+      responses:
+        '201':
+          description: Patient created
+
+  /patients/{id}:
+    get:
+      tags:
+        - Patients
+      summary: Get a patient by ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Patient object
+    put:
+      tags:
+        - Patients
+      summary: Update a patient
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Patient'
+      responses:
+        '200':
+          description: Patient updated
+    delete:
+      tags:
+        - Patients
+      summary: Delete a patient
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Patient deleted
+
+  # Appointments
+  /appointments:
+    get:
+      tags:
+        - Appointments
+      summary: Get all appointments
+      responses:
+        '200':
+          description: List of appointments
+    post:
+      tags:
+        - Appointments
+      summary: Create a new appointment
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Appointment'
+      responses:
+        '201':
+          description: Appointment created
+
+  /appointments/{id}:
+    get:
+      tags:
+        - Appointments
+      summary: Get appointment by ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Appointment object
+    put:
+      tags:
+        - Appointments
+      summary: Update appointment
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Appointment'
+      responses:
+        '200':
+          description: Appointment updated
+    delete:
+      tags:
+        - Appointments
+      summary: Delete appointment
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Appointment deleted
+
+components:
+  schemas:
+    Hospital:
+      type: object
+      required:
+        - name
+        - location
+      properties:
+        name:
+          type: string
+          example: City Hospital
+        location:
+          type: string
+          example: New York
+
+    Doctor:
+      type: object
+      required:
+        - name
+        - specialization
+        - hospital_id
+      properties:
+        name:
+          type: string
+          example: Dr. John Doe
+        specialization:
+          type: string
+          example: Cardiology
+        hospital_id:
+          type: string
+          example: 64f8f1b2a0c123456789abcd
+
+    Patient:
+      type: object
+      required:
+        - name
+        - age
+        - hospital_id
+      properties:
+        name:
+          type: string
+          example: Jane Smith
+        age:
+          type: integer
+          example: 35
+        hospital_id:
+          type: string
+          example: 64f8f1b2a0c123456789abcd
+
+    Appointment:
+      type: object
+      required:
+        - patient_id
+        - doctor_id
+        - date
+      properties:
+        patient_id:
+          type: string
+          example: 64f8f1b2a0c123456789abcd
+        doctor_id:
+          type: string
+          example: 64f8f1b2a0c123456789efgh
+        date:
+          type: string
+          format: date-time
+          example: 2025-09-06T14:00:00.000Z
