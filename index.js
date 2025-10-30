@@ -6,14 +6,15 @@ const cors = require("cors");
 const http = require("http");
 const logger = require("pino-http");
 const routes = require("./routes");
-// const swaggerUi = require("swagger-ui-express");
-// const YAML = require("yamljs");
+const swaggerUi = require("swagger-ui-express");
+const YAML = require("yamljs");
+const path = require("path");
 const app = express();
 const server = http.createServer(app);
+const swaggerPath = path.join(__dirname, "swagger.yaml");
+const swaggerDocument = YAML.load(swaggerPath);
 
-// const swaggerDocument = YAML.load("./swagger.yaml");
-
-// app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use(cors());
 app.use(express.json());
